@@ -15,6 +15,7 @@ import dailyGrub.baseClass.BaseClassDailyGrub;
 
 public class addRecipeLocators extends BaseClassDailyGrub {
 	public WebDriverWait wait;
+	
 	JavascriptExecutor executor = (JavascriptExecutor)driver;
 	Actions actions = new Actions(driver);
 	
@@ -124,7 +125,7 @@ public class addRecipeLocators extends BaseClassDailyGrub {
 	    }
 	
 	public void clickManageRecipe() {
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		//wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ManageRecipe));
 		ManageRecipe.click();
 	}

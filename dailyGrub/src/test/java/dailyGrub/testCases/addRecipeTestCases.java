@@ -19,12 +19,14 @@ import org.testng.annotations.Test;
 
 import dailyGrub.baseClass.BaseClassDailyGrub;
 import dailyGrub.locators.loginPageLocators;
+import dailyGrub.locators.recipeListPageLocators;
 import dailyGrub.locators.addRecipeLocators;
 
 public class addRecipeTestCases extends BaseClassDailyGrub {
 	public loginPageLocators LoginPageLocators;
 	public addRecipeLocators AddRecipeLocators;
 	public loginTestCase LoginTestCase;
+	public recipeListPageLocators RecipeListPageLocators;
 	WebDriverWait wait;
 	
 	@BeforeClass
@@ -32,6 +34,7 @@ public class addRecipeTestCases extends BaseClassDailyGrub {
 		browserLaunch();
         LoginPageLocators = PageFactory.initElements(driver, loginPageLocators.class);
         AddRecipeLocators = PageFactory.initElements(driver, addRecipeLocators.class);
+        RecipeListPageLocators = PageFactory.initElements(driver, recipeListPageLocators.class);
 		//LoginTestCase = new loginTestCase();
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
@@ -173,6 +176,14 @@ public class addRecipeTestCases extends BaseClassDailyGrub {
 		String expectedResult = "https://dev.dailygrub.store/manage-recipe/";
 		Assert.assertEquals(actualResult,expectedResult);
 		System.out.println("The page was redirected to the list page.");
+	}
+	@Test(priority = 7)
+	public void checkTheAddedRecord() {
+		RecipeListPageLocators.enterSearchBar("Test Apple Crumbles");
+		wait.until(ExpectedConditions.visibilityOf((RecipeListPageLocators.RecipeNameInList)));
+		Assert.assertTrue((RecipeListPageLocators.RecipeNameInList).isDisplayed());
+		String RecipeNameinList = RecipeListPageLocators.RecipeNameInList.getText();
+		System.out.println("The newly added recipe was: "+ RecipeNameinList);
 	}
 	
 	@AfterClass
